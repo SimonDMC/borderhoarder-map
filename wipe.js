@@ -6,9 +6,11 @@
 
 import fs from "fs";
 
-const basePath = process.cwd() + "/data";
+export default function wipe() {
+    const basePath = process.cwd() + "/data";
 
-// wipe the data folder
-if (fs.existsSync(basePath)) {
-    fs.rmSync(basePath, { recursive: true, force: true });
+    // wipe the data folder
+    if (fs.existsSync(basePath)) {
+        fs.rmSync(basePath, { recursive: true, force: true });
+    }
 }
