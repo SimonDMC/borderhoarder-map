@@ -10,12 +10,15 @@
 */
 
 import fs from "fs";
+import { startTimer, endTimer } from "./time.js";
 import wipe from "./wipe.js";
 import generateCore from "./core.js";
 import generateChest from "./chest.js";
 
 // wipe previous data
+startTimer("wipe");
 wipe();
+endTimer("wipe");
 
 // define path variables
 export const basePath = process.cwd() + "/data";
@@ -41,5 +44,12 @@ if (!fs.existsSync(lootTablesPath)) {
 }
 
 // call generation scripts
+startTimer("generateCore");
 generateCore();
+endTimer("generateCore");
+
+startTimer("generateChest");
 generateChest();
+endTimer("generateChest");
+
+console.log("\x1b[32mDone generating files!\x1b[0m");
