@@ -62,18 +62,39 @@ execute if score found sys matches 0 if score last_item_filled sys matches ..${i
 
     fs.writeFileSync(functionsPath + "/find_next_item.mcfunction", content);
 
+    // create wipe_chest function
+    content = "";
+    for (let i = 0; i < 27; i++) {
+        content += `item replace block ${CHEST_1} container.${i} with air
+item replace block ${CHEST_2} container.${i} with air
+`;
+    }
+
+    fs.writeFileSync(functionsPath + "/wipe_chest.mcfunction", content);
+
     // create fill_chest function
     content = `scoreboard players set slot sys 0
+execute unless block ${CHEST_2} minecraft:chest{Items:[{Slot:26b, id:"minecraft:arrow"}]} unless score last_page sys matches 1 run scoreboard players operation last_page_item sys = last_item_filled sys
+function simondmc:wipe_chest
 scoreboard players operation last_item_filled sys = last_page_item sys
 `;
 
     for (let i = 0; i < 45; i++) {
         content += `scoreboard players add slot sys 1
 function simondmc:find_next_item
-function simondmc:fill_item
-scoreboard players operation last_item_filled sys = current_fill_item sys
+execute if score found sys matches 1 run function simondmc:fill_item
+execute if score found sys matches 1 run scoreboard players operation last_item_filled sys = current_fill_item sys
 `;
     }
+
+    for (let i = 18; i < 27; i++) {
+        content += `item replace block ${CHEST_2} container.${i} with gray_stained_glass_pane{display:{Name:'{"text":""}'}}
+`;
+    }
+
+    content += `execute if score found sys matches 1 run item replace block ${CHEST_2} container.26 with arrow{display:{Name:'{"text":"Next Page","color":"green","italic":false}'}}
+execute if score found sys matches 0 run scoreboard players set last_page sys 1
+`;
 
     fs.writeFileSync(functionsPath + "/fill_chest.mcfunction", content);
 }
