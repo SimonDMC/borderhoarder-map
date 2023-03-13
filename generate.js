@@ -14,6 +14,7 @@ import { startTimer, endTimer } from "./time.js";
 import wipe from "./wipe.js";
 import generateCore from "./core.js";
 import generateChest from "./chest.js";
+import copyStatic from "./copy.js";
 
 // wipe previous data
 startTimer("wipe");
@@ -52,4 +53,8 @@ startTimer("generateChest");
 generateChest();
 endTimer("generateChest");
 
-console.log("\x1b[32mDone generating files!\x1b[0m");
+startTimer("copyStatic");
+copyStatic();
+endTimer("copyStatic");
+
+console.log("\x1b[32mDatapack generation done!\x1b[0m");

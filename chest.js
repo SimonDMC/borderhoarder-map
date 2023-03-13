@@ -3,8 +3,8 @@ import { items } from "./items.js";
 import { lootTablesPath, functionsPath } from "./generate.js";
 
 export default function generateChest() {
-    const CHEST_1 = "241 71 429";
-    const CHEST_2 = "240 71 429";
+    const CHEST_1 = "241 -61 436";
+    const CHEST_2 = "240 -61 436";
 
     // create all item loot tables
     items.forEach((item) => {
