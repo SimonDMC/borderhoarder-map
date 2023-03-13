@@ -1,0 +1,13 @@
+{
+    "name": "border-hoarder",
+    "version": "0.1",
+    "description": "",
+    "type": "module",
+    "main": "generate.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
+}
