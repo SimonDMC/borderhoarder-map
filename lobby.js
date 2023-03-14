@@ -114,6 +114,7 @@ scoreboard players set ${i} in_lobby 0
 item replace entity @s armor.chest from block ${BARREL_2} container.10
 item replace entity @s armor.legs from block ${BARREL_2} container.11
 item replace entity @s armor.feet from block ${BARREL_2} container.12
+item replace entity @s weapon.offhand from block ${BARREL_2} container.13
 `;
         for (let j = 0; j <= 20; j++) {
             content += `execute if score ${i}_health in_lobby matches ${j} run damage @s ${Math.min(
