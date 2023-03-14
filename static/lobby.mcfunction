@@ -1,5 +1,5 @@
 # exit lobby
-execute if entity @a[x=242,y=-61,z=420,dx=-3] run function simondmc:exit_lobby
+execute as @a[x=242,y=-61,z=420,dx=-3] run function simondmc:leave_lobby
 
 # update stats
 execute as @e[tag=stat_1] run function simondmc:update_progress
@@ -13,9 +13,13 @@ scoreboard objectives add open_chest custom:open_chest
 execute as @a if score @s open_chest matches 1.. if entity @s[tag=lobby] run scoreboard players set last_page sys 0
 execute as @a if score @s open_chest matches 1.. if entity @s[tag=lobby] run scoreboard players set last_page_item sys 0
 execute as @a if score @s open_chest matches 1.. if entity @s[tag=lobby] run function simondmc:fill_chest
+execute as @a if score @s open_chest matches 1.. if entity @s[tag=lobby] run scoreboard players reset @s open_chest
 
 # update chest check
 function simondmc:check_chest
+
+# no item obtaining
+clear @a[tag=lobby]
 
 # right click armor stand
 execute as @e[tag=stand_interact] unless data entity @s {interaction:{timestamp:0L}} on target run function simondmc:click_stand

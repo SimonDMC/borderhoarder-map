@@ -15,17 +15,15 @@ export default function generateLobby() {
     // create block spinning function
     let content = "";
     for (let i = 1; i <= 4; i++) {
-        content += `execute if score block_${i}_spin sys matches 19.. as @e[tag=small_block_${i}] at @s run tp @s ~ ~ ~ ~50 ~
-execute if score block_${i}_spin sys matches 17..18 as @e[tag=small_block_${i}] at @s run tp @s ~ ~ ~ ~45 ~
-execute if score block_${i}_spin sys matches 15..16 as @e[tag=small_block_${i}] at @s run tp @s ~ ~ ~ ~40 ~
-execute if score block_${i}_spin sys matches 13..14 as @e[tag=small_block_${i}] at @s run tp @s ~ ~ ~ ~35 ~
-execute if score block_${i}_spin sys matches 11..12 as @e[tag=small_block_${i}] at @s run tp @s ~ ~ ~ ~30 ~
-execute if score block_${i}_spin sys matches 9..10 as @e[tag=small_block_${i}] at @s run tp @s ~ ~ ~ ~25 ~
-execute if score block_${i}_spin sys matches 7..8 as @e[tag=small_block_${i}] at @s run tp @s ~ ~ ~ ~20 ~
-execute if score block_${i}_spin sys matches 5..6 as @e[tag=small_block_${i}] at @s run tp @s ~ ~ ~ ~15 ~
-execute if score block_${i}_spin sys matches 3..4 as @e[tag=small_block_${i}] at @s run tp @s ~ ~ ~ ~10 ~
-execute if score block_${i}_spin sys matches 1..2 as @e[tag=small_block_${i}] at @s run tp @s ~ ~ ~ ~5 ~
-execute if score block_${i}_spin sys matches 1.. run scoreboard players add block_${i}_spin sys -1
+        content += `execute if score block_${i}_spin sys matches 19.. as @e[tag=small_block_${i}] at @s run tp @s ~ ~ ~ ~40 ~
+execute if score block_${i}_spin sys matches 17..18 as @e[tag=small_block_${i}] at @s run tp @s ~ ~ ~ ~35 ~
+execute if score block_${i}_spin sys matches 15..16 as @e[tag=small_block_${i}] at @s run tp @s ~ ~ ~ ~30 ~
+execute if score block_${i}_spin sys matches 13..14 as @e[tag=small_block_${i}] at @s run tp @s ~ ~ ~ ~25 ~
+execute if score block_${i}_spin sys matches 11..12 as @e[tag=small_block_${i}] at @s run tp @s ~ ~ ~ ~20 ~
+execute if score block_${i}_spin sys matches 9..10 as @e[tag=small_block_${i}] at @s run tp @s ~ ~ ~ ~15 ~
+execute if score block_${i}_spin sys matches 5..8 as @e[tag=small_block_${i}] at @s run tp @s ~ ~ ~ ~10 ~
+execute if score block_${i}_spin sys matches 1..4 as @e[tag=small_block_${i}] at @s run tp @s ~ ~ ~ ~5 ~
+execute if score block_${i}_spin sys matches 1.. run scoreboard players remove block_${i}_spin sys 1
 `;
     }
 
@@ -34,7 +32,7 @@ execute if score block_${i}_spin sys matches 1.. run scoreboard players add bloc
     // create update progress function
     content = "";
     for (let i = 0; i < items.length; i++) {
-        content += `execute if score border sys matches ${i} run data merge @s {text:'{"text":"Items Collected: ${i}/${
+        content += `execute if score border sys matches ${i} run data merge entity @s {text:'{"text":"Items Collected: ${i}/${
             items.length
         } (${Math.round((i / items.length) * 1000) / 10}%)"}'}
 `;
@@ -44,13 +42,10 @@ execute if score block_${i}_spin sys matches 1.. run scoreboard players add bloc
 
     // create join lobby function
     content = `scoreboard objectives add in_lobby dummy
+scoreboard players reset @a lobby
 `;
     for (let i = 1; i <= 16; i++) {
-        let chain = "";
-        for (let j = 1; j <= i; j++) {
-            chain += `unless score ${j} in_lobby matches 1 `;
-        }
-        content += `execute as @s[tag=!lobby] ${chain}run function simondmc:lobby/join_lobby_${i}
+        content += `execute as @s[tag=!lobby] unless score ${i} in_lobby matches 1 run function simondmc:lobby/join_lobby_${i}
 `;
     }
 
@@ -91,7 +86,7 @@ item replace block ${BARREL_2} container.13 from entity @s weapon.offhand
 clear @s
 scoreboard players operation ${i}_health in_lobby = @s health
 effect give @s regeneration infinite 10 true
-tp @e[tag=pos_holder_${i}] @s
+tp @e[tag=pos_hold_${i}] @s
 tp @s ${LOBBY_POS} 0 0
 execute at @s run playsound entity.enderman.teleport master @s
 gamemode adventure @s
@@ -127,7 +122,7 @@ item replace entity @s armor.feet from block ${BARREL_2} container.12
 `;
         }
         content += `effect clear @s regeneration
-tp @s @e[tag=pos_holder_${i}]
+tp @s @e[tag=pos_hold_${i},limit=1]
 execute at @s run playsound entity.enderman.teleport master @s
 gamemode survival @s
 `;

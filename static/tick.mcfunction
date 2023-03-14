@@ -3,7 +3,7 @@ scoreboard objectives add health health
 scoreboard objectives add food food
 
 # test for activation
-execute as @a[tag=!lobby] if score @s lobby matches -2147483648..2147483647 run function simondmc:join_lobby
+execute as @a[tag=!lobby] if score @s lobby matches 1.. run function simondmc:join_lobby
 
 execute if score border sys matches 10.. run scoreboard players enable @a[tag=!lobby] lobby
 
@@ -24,5 +24,6 @@ execute if score minutes timer matches 60 run scoreboard players set minutes tim
 
 # death pooling
 scoreboard objectives add deaths deathCount
+execute unless score $total deaths matches 0.. run scoreboard players set $total deaths 0
 execute as @a if score @s deaths matches 1.. run scoreboard players operation $total deaths += @s deaths 
 execute as @a if score @s deaths matches 1.. run scoreboard players reset @s deaths

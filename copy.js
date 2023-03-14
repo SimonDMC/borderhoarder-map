@@ -1,5 +1,5 @@
 import fs from "fs";
-import { basePath, advancementsPath, functionsPath } from "./generate.js";
+import { basePath, functionsPath, lootTablesPath } from "./generate.js";
 
 export default function copyStatic() {
     const staticPath = process.cwd() + "/static";
@@ -14,11 +14,11 @@ export default function copyStatic() {
     // copy tick.json
     fs.copyFileSync(staticPath + "/tick.json", functionTagPath + "/tick.json");
 
-    // copy advancements
-    /*fs.copyFileSync(
-        staticPath + "/click_stand.json",
-        advancementsPath + "/click_stand.json"
-    );*/
+    // copy loot tables
+    fs.copyFileSync(
+        staticPath + "/empty_pane.json",
+        lootTablesPath + "/empty_pane.json"
+    );
 
     // copy functions
     fs.copyFileSync(
