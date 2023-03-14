@@ -27,3 +27,9 @@ scoreboard objectives add deaths deathCount
 execute unless score $total deaths matches 0.. run scoreboard players set $total deaths 0
 execute as @a if score @s deaths matches 1.. run scoreboard players operation $total deaths += @s deaths 
 execute as @a if score @s deaths matches 1.. run scoreboard players reset @s deaths
+
+# setup 
+tag @a add player
+gamerule randomTickSpeed 3
+gamerule doDaylightCycle true
+gamerule sendCommandFeedback false

@@ -22,6 +22,9 @@ advancement revoke @a everything
 scoreboard players set border sys 0
 function simondmc:sync_border
 
+# setup
+weather clear
+
 # for chest.js
 scoreboard players set last_page_item sys 0
 `;
@@ -59,17 +62,20 @@ scoreboard players set last_page_item sys 0
     }
 
     items.forEach((item) => {
-        content = `execute unless score ${
+        content = `execute as @s[tag=lobby] run advancement revoke @s only simondmc:${
             item[1]
-        } items matches 1.. run tellraw @a [{"selector":"@a[advancements={simondmc:${
+        }
+execute as @s[tag=!lobby] unless score ${
             item[1]
-        }=true}]","color":"green"},{"text":" obtained ${
+        } items matches 1.. run tellraw @a [{"selector":"@s","color":"green"},{"text":" obtained ${
             getPreposition(item[0]) + item[0]
         }!","color":"green"}]
-execute unless score ${item[1]} items matches 1.. run function simondmc:obtain
-execute unless score ${item[1]} items matches 1.. run scoreboard players set ${
+execute as @s[tag=!lobby] unless score ${
             item[1]
-        } items 1`;
+        } items matches 1.. run function simondmc:obtain
+execute as @s[tag=!lobby] unless score ${
+            item[1]
+        } items matches 1.. run scoreboard players set ${item[1]} items 1`;
 
         fs.writeFileSync(itemFunctionsPath + `/${item[1]}.mcfunction`, content);
     });

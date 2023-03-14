@@ -15,7 +15,8 @@ export default function generateLobby() {
     // create block spinning function
     let content = "";
     for (let i = 1; i <= 4; i++) {
-        content += `execute if score block_${i}_spin sys matches 19.. as @e[tag=small_block_${i}] at @s run tp @s ~ ~ ~ ~40 ~
+        content += `execute if score block_${i}_spin sys matches 35.. run scoreboard players set block_${i}_spin sys 34
+execute if score block_${i}_spin sys matches 19.. as @e[tag=small_block_${i}] at @s run tp @s ~ ~ ~ ~40 ~
 execute if score block_${i}_spin sys matches 17..18 as @e[tag=small_block_${i}] at @s run tp @s ~ ~ ~ ~35 ~
 execute if score block_${i}_spin sys matches 15..16 as @e[tag=small_block_${i}] at @s run tp @s ~ ~ ~ ~30 ~
 execute if score block_${i}_spin sys matches 13..14 as @e[tag=small_block_${i}] at @s run tp @s ~ ~ ~ ~25 ~

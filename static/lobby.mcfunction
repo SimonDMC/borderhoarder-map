@@ -12,6 +12,7 @@ execute as @e[tag=stat_4] run data merge entity @s {text:'[{"text":"Deaths: "},{
 scoreboard objectives add open_chest custom:open_chest
 execute as @a if score @s open_chest matches 1.. if entity @s[tag=lobby] run scoreboard players set last_page sys 0
 execute as @a if score @s open_chest matches 1.. if entity @s[tag=lobby] run scoreboard players set last_page_item sys 0
+execute as @a if score @s open_chest matches 1.. if entity @s[tag=lobby] run scoreboard players set last_item_filled sys 0
 execute as @a if score @s open_chest matches 1.. if entity @s[tag=lobby] run function simondmc:fill_chest
 execute as @a if score @s open_chest matches 1.. if entity @s[tag=lobby] run scoreboard players reset @s open_chest
 
