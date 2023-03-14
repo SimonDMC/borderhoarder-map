@@ -97,4 +97,17 @@ execute if score found sys matches 0 run scoreboard players set last_page sys 1
 `;
 
     fs.writeFileSync(functionsPath + "/fill_chest.mcfunction", content);
+
+    // create check_chest function
+    content = `scoreboard players set empty sys 0
+`;
+    for (let i = 0; i < 27; i++) {
+        content += `execute unless block ${CHEST_1} minecraft:chest{Items:[{Slot:${i}b}]} run scoreboard players set empty sys 1
+execute unless block ${CHEST_2} minecraft:chest{Items:[{Slot:${i}b}]} run scoreboard players set empty sys 1
+`;
+    }
+
+    content += `execute if score empty sys matches 1 run function simondmc:fill_chest`;
+
+    fs.writeFileSync(functionsPath + "/check_chest.mcfunction", content);
 }

@@ -15,10 +15,10 @@ export default function copyStatic() {
     fs.copyFileSync(staticPath + "/tick.json", functionTagPath + "/tick.json");
 
     // copy advancements
-    fs.copyFileSync(
+    /*fs.copyFileSync(
         staticPath + "/click_stand.json",
         advancementsPath + "/click_stand.json"
-    );
+    );*/
 
     // copy functions
     fs.copyFileSync(

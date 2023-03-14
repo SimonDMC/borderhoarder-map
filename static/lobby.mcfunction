@@ -13,3 +13,23 @@ scoreboard objectives add open_chest custom:open_chest
 execute as @a if score @s open_chest matches 1.. if entity @s[tag=lobby] run scoreboard players set last_page sys 0
 execute as @a if score @s open_chest matches 1.. if entity @s[tag=lobby] run scoreboard players set last_page_item sys 0
 execute as @a if score @s open_chest matches 1.. if entity @s[tag=lobby] run function simondmc:fill_chest
+
+# update chest check
+function simondmc:check_chest
+
+# right click armor stand
+execute as @e[tag=stand_interact] unless data entity @s {interaction:{timestamp:0L}} on target run function simondmc:click_stand
+execute as @e[tag=stand_interact] run data merge entity @s {interaction:{timestamp:0}}
+
+# left click blocks
+execute as @e[tag=small_block_int_1] unless data entity @s {attack:{timestamp:0L}} run scoreboard players add block_1_spin sys 20
+execute as @e[tag=small_block_int_1] run data merge entity @s {attack:{timestamp:0}}
+execute as @e[tag=small_block_int_2] unless data entity @s {attack:{timestamp:0L}} run scoreboard players add block_2_spin sys 20
+execute as @e[tag=small_block_int_2] run data merge entity @s {attack:{timestamp:0}}
+execute as @e[tag=small_block_int_3] unless data entity @s {attack:{timestamp:0L}} run scoreboard players add block_3_spin sys 20
+execute as @e[tag=small_block_int_3] run data merge entity @s {attack:{timestamp:0}}
+execute as @e[tag=small_block_int_4] unless data entity @s {attack:{timestamp:0L}} run scoreboard players add block_4_spin sys 20
+execute as @e[tag=small_block_int_4] run data merge entity @s {attack:{timestamp:0}}
+
+# block spinning
+function simondmc:spin_blocks

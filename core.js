@@ -76,6 +76,8 @@ execute unless score ${item[1]} items matches 1.. run scoreboard players set ${
 
     // create obtain function
     content = `scoreboard players add border sys 1
+execute if score border sys matches 10 run tellraw @a ["",{"text":"You have unlocked the lobby! Enter it with ","color":"gold"},{"text":"/trigger lobby","color":"yellow","clickEvent":{"action":"suggest_command","value":"/trigger lobby"}},{"text":"!","color":"gold"}]
+execute if score border sys matches 10 run playsound minecraft:entity.player.levelup master @s
 execute as @a at @s run playsound minecraft:entity.experience_orb.pickup master @s
 function simondmc:sync_border`;
 

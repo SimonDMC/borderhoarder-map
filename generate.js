@@ -14,6 +14,7 @@ import { startTimer, endTimer } from "./time.js";
 import wipe from "./wipe.js";
 import generateCore from "./core.js";
 import generateChest from "./chest.js";
+import generateLobby from "./lobby.js";
 import copyStatic from "./copy.js";
 
 // wipe previous data
@@ -52,6 +53,10 @@ endTimer("generateCore");
 startTimer("generateChest");
 generateChest();
 endTimer("generateChest");
+
+startTimer("generateLobby");
+generateLobby();
+endTimer("generateLobby");
 
 startTimer("copyStatic");
 copyStatic();
