@@ -31,22 +31,52 @@ execute if score block_${i}_spin sys matches 1.. run scoreboard players remove b
     fs.writeFileSync(functionsPath + "/spin_blocks.mcfunction", content);
 
     // create update progress function
+    function oneDecimal(num) {
+        return (Math.round(num * 10) / 10).toFixed(1);
+    }
+
     content = "";
-    for (let i = 0; i < items.length; i++) {
+    for (let i = 0; i <= items.length; i++) {
         content += `execute if score border sys matches ${i} run data merge entity @s {text:'{"text":"Items Collected: ${i}/${
             items.length
-        } (${Math.round((i / items.length) * 1000) / 10}%)"}'}
+        } (${oneDecimal((i / items.length) * 100)}%)"}'}
 `;
     }
 
     fs.writeFileSync(functionsPath + "/update_progress.mcfunction", content);
 
+    // create update area function
+    function formatNum(num) {
+        if (num < 1000) return num;
+        if (num < 10000) return Math.round(num / 100) / 10 + "k";
+        if (num < 100000) return Math.round(num / 100) / 10 + "k";
+        if (num < 1000000) return Math.round(num / 1000) + "k";
+        if (num < 10000000) return Math.round(num / 10000) / 100 + "M";
+        if (num < 100000000) return Math.round(num / 100000) / 10 + "M";
+        if (num < 1000000000) return Math.round(num / 100000) / 10 + "M";
+    }
+
+    content = "";
+    const max = (2 * items.length + 1) ** 2;
+    for (let i = 0; i <= items.length; i++) {
+        let num = (2 * i + 1) ** 2;
+        content += `execute if score border sys matches ${i} run data merge entity @s {text:'{"text":"Area Unlocked: ${formatNum(
+            num
+        )}/${formatNum(max)} (${oneDecimal((num / max) * 100)}%)"}'}
+`;
+    }
+
+    fs.writeFileSync(functionsPath + "/update_area.mcfunction", content);
+
     // create join lobby function
     content = `scoreboard objectives add in_lobby dummy
 scoreboard players reset @a lobby
+execute as @s[tag=!lobby] at @s if dimension minecraft:the_nether run tellraw @s {"text":"You can't enter the lobby while in the nether.","color":"red"}
+execute as @s[tag=!lobby] at @s if dimension minecraft:the_end run tellraw @s {"text":"You can't enter the lobby while in the end.","color":"red"}
 `;
     for (let i = 1; i <= 16; i++) {
-        content += `execute as @s[tag=!lobby] unless score ${i} in_lobby matches 1 run function simondmc:lobby/join_lobby_${i}
+        content += `execute as @s[tag=!lobby] at @s if dimension minecraft:overworld unless score ${i} in_lobby matches 1 run function simondmc:lobby/join_lobby_${i}
+execute unless entity @e[tag=pos_hold_${i}] at @s if dimension minecraft:overworld run summon marker ~ ~ ~ {Tags:["pos_hold_${i}"]}
 `;
     }
 
@@ -86,7 +116,11 @@ item replace block ${BARREL_2} container.12 from entity @s armor.feet
 item replace block ${BARREL_2} container.13 from entity @s weapon.offhand
 clear @s
 scoreboard players operation ${i}_health in_lobby = @s health
+scoreboard players operation ${i}_food in_lobby = @s food
 effect give @s regeneration infinite 10 true
+effect give @s resistance infinite 10 true
+effect give @s weakness infinite 10 true
+execute at @s as @e[distance=..5] run data merge entity @s {PersistenceRequired:1b}
 tp @e[tag=pos_hold_${i}] @s
 tp @s ${LOBBY_POS} 0 0
 execute at @s run playsound entity.enderman.teleport master @s
@@ -124,11 +158,23 @@ item replace entity @s weapon.offhand from block ${BARREL_2} container.13
 `;
         }
         content += `effect clear @s regeneration
+effect clear @s resistance
+effect clear @s weakness
 tp @s @e[tag=pos_hold_${i},limit=1]
+execute at @s as @e[distance=..10] run data merge entity @s {PersistenceRequired:0b}
 execute at @s run playsound entity.enderman.teleport master @s
 gamemode survival @s
 `;
 
         fs.writeFileSync(lobbyPath + `/leave_lobby_${i}.mcfunction`, content);
     }
+
+    // create check food function
+    content = "";
+    for (let i = 1; i <= 16; i++) {
+        content += `execute as @a[tag=lobby_${i}] if score @s food < ${i}_food in_lobby run effect give @s saturation 1 0 true
+`;
+    }
+
+    fs.writeFileSync(functionsPath + "/check_food.mcfunction", content);
 }

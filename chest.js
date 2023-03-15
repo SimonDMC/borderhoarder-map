@@ -62,6 +62,17 @@ execute if score found sys matches 0 if score last_item_filled sys matches ..${i
 
     fs.writeFileSync(functionsPath + "/find_next_item.mcfunction", content);
 
+    // create proof_chest function
+    content = `scoreboard players set found sys 0
+`;
+
+    items.forEach((item, index) => {
+        content += `execute if score last_item_filled sys matches ..${index} unless score ${item[1]} items matches 1.. run scoreboard players set found sys 1
+`;
+    });
+
+    fs.writeFileSync(functionsPath + "/proof_chest.mcfunction", content);
+
     // create wipe_chest function
     content = "";
     for (let i = 0; i < 27; i++) {
@@ -75,6 +86,7 @@ item replace block ${CHEST_2} container.${i} with air
     // create fill_chest function
     content = `scoreboard players set slot sys 0
 execute unless block ${CHEST_2} minecraft:chest{Items:[{Slot:26b, id:"minecraft:arrow"}]} unless score last_page sys matches 1 run scoreboard players operation last_page_item sys = last_item_filled sys
+execute unless block ${CHEST_2} minecraft:chest{Items:[{Slot:26b, id:"minecraft:arrow"}]} unless score last_page sys matches 1 run scoreboard players add current_page sys 1
 function simondmc:wipe_chest
 scoreboard players operation last_item_filled sys = last_page_item sys
 `;
@@ -88,6 +100,7 @@ execute if score found sys matches 1 run scoreboard players operation last_item_
     }
 
     content += `function simondmc:complete_chest
+function simondmc:proof_chest
 execute if score found sys matches 1 run item replace block ${CHEST_2} container.26 with arrow{display:{Name:'{"text":"Next Page","color":"green","italic":false}'}}
 execute if score found sys matches 0 run scoreboard players set last_page sys 1
 `;
@@ -112,6 +125,11 @@ execute unless block ${CHEST_2} minecraft:chest{Items:[{Slot:${i}b}]} run scoreb
     for (let i = 0; i < 27; i++) {
         content += `execute unless block ${CHEST_1} minecraft:chest{Items:[{Slot:${i}b}]} run item replace block ${CHEST_1} container.${i} with gray_stained_glass_pane{display:{Name:'{"text":""}'}}
 execute unless block ${CHEST_2} minecraft:chest{Items:[{Slot:${i}b}]} run item replace block ${CHEST_2} container.${i} with gray_stained_glass_pane{display:{Name:'{"text":""}'}}
+`;
+    }
+
+    for (let i = 1; i <= 24; i++) {
+        content += `execute if score current_page sys matches ${i} run item replace block ${CHEST_2} container.22 with paper{display:{Name:'{"text":"Page ${i}","color":"yellow","italic":false}'}}
 `;
     }
 

@@ -1,5 +1,10 @@
 import fs from "fs";
-import { basePath, functionsPath, lootTablesPath } from "./generate.js";
+import {
+    basePath,
+    functionsPath,
+    lootTablesPath,
+    predicatesPath,
+} from "./generate.js";
 
 export default function copyStatic() {
     const staticPath = process.cwd() + "/static";
@@ -32,5 +37,11 @@ export default function copyStatic() {
     fs.copyFileSync(
         staticPath + "/click_stand.mcfunction",
         functionsPath + "/click_stand.mcfunction"
+    );
+
+    // copy predicates
+    fs.copyFileSync(
+        staticPath + "/in_lobby.json",
+        predicatesPath + "/in_lobby.json"
     );
 }

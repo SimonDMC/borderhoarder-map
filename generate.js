@@ -33,6 +33,7 @@ if (!fs.existsSync(basePath)) {
 export const functionsPath = basePath + "/simondmc/functions";
 export const advancementsPath = basePath + "/simondmc/advancements";
 export const lootTablesPath = basePath + "/simondmc/loot_tables";
+export const predicatesPath = basePath + "/simondmc/predicates";
 
 // make sure folders exist
 if (!fs.existsSync(functionsPath)) {
@@ -43,6 +44,9 @@ if (!fs.existsSync(advancementsPath)) {
 }
 if (!fs.existsSync(lootTablesPath)) {
     fs.mkdirSync(lootTablesPath, { recursive: true });
+}
+if (!fs.existsSync(predicatesPath)) {
+    fs.mkdirSync(predicatesPath, { recursive: true });
 }
 
 // call generation scripts

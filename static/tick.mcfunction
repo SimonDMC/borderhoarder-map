@@ -9,6 +9,9 @@ execute if score border sys matches 10.. run scoreboard players enable @a[tag=!l
 
 execute if entity @a[tag=lobby] run function simondmc:lobby
 
+# tp out of lobby if not in lobby
+execute as @a[tag=!lobby] if predicate simondmc:in_lobby run tp @s 241 71 428 0 0
+
 # timer
 scoreboard objectives add timer dummy
 execute unless score minutes timer matches 0.. run scoreboard players set minutes timer 0
@@ -32,4 +35,7 @@ execute as @a if score @s deaths matches 1.. run scoreboard players reset @s dea
 tag @a add player
 gamerule randomTickSpeed 3
 gamerule doDaylightCycle true
-gamerule sendCommandFeedback false
+
+# gate warning
+execute in minecraft:the_end if block 0 65 0 minecraft:dragon_egg unless score gates sys matches 1 run tellraw @a ["",{"text":"Watch out for the ","color":"gold"},{"text":"End Gateways","color":"light_purple"},{"text":"! If you go through one, there is a very high chance you'll end up outside the border and ","color":"gold"},{"text":"die immediately","color":"red"},{"text":". There is an ","color":"gold"},{"text":"End City","color":"light_purple"},{"text":" within the border, but you'll have to make a bridge to it.","color":"gold"}]
+execute in minecraft:the_end if block 0 65 0 minecraft:dragon_egg unless score gates sys matches 1 run scoreboard players set gates sys 1

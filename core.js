@@ -22,8 +22,19 @@ advancement revoke @a everything
 scoreboard players set border sys 0
 function simondmc:sync_border
 
+scoreboard objectives add p_items dummy
+scoreboard players set @a p_items 0
+scoreboard objectives setdisplay list p_items
+
 # setup
 weather clear
+kill @e[type=zombie]
+kill @e[type=skeleton]
+kill @e[type=spider]
+kill @e[type=creeper]
+kill @e[type=enderman]
+kill @e[type=item]
+gamerule sendCommandFeedback false
 
 # for chest.js
 scoreboard players set last_page_item sys 0
@@ -82,6 +93,7 @@ execute as @s[tag=!lobby] unless score ${
 
     // create obtain function
     content = `scoreboard players add border sys 1
+scoreboard players add @s p_items 1
 execute if score border sys matches 10 run tellraw @a ["",{"text":"You have unlocked the lobby! Enter it with ","color":"gold"},{"text":"/trigger lobby","color":"yellow","clickEvent":{"action":"suggest_command","value":"/trigger lobby"}},{"text":"!","color":"gold"}]
 execute if score border sys matches 10 run playsound minecraft:entity.player.levelup master @s
 execute as @a at @s run playsound minecraft:entity.experience_orb.pickup master @s

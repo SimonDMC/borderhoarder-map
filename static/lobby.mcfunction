@@ -4,7 +4,9 @@ execute as @a[x=242,y=-61,z=420,dx=-3] run function simondmc:leave_lobby
 # update stats
 execute as @e[tag=stat_1] run function simondmc:update_progress
 
-execute as @e[tag=stat_3] run data merge entity @s {text:'[{"text":"Playtime: "},{"score":{"name":"hours","objective":"timer"}},{"text":"h "},{"score":{"name":"minutes","objective":"timer"}},{"text":"m"}]'}
+execute as @e[tag=stat_2] run function simondmc:update_area
+
+execute as @e[tag=stat_3] run data merge entity @s {text:'[{"text":"Playtime: "},{"score":{"name":"hours","objective":"timer"}},{"text":"h "},{"score":{"name":"minutes","objective":"timer"}},{"text":"m "},{"score":{"name":"seconds","objective":"timer"}},{"text":"s"}]'}
 
 execute as @e[tag=stat_4] run data merge entity @s {text:'[{"text":"Deaths: "},{"score":{"name":"$total","objective":"deaths"}}]'}
 
@@ -13,11 +15,23 @@ scoreboard objectives add open_chest custom:open_chest
 execute as @a if score @s open_chest matches 1.. if entity @s[tag=lobby] run scoreboard players set last_page sys 0
 execute as @a if score @s open_chest matches 1.. if entity @s[tag=lobby] run scoreboard players set last_page_item sys 0
 execute as @a if score @s open_chest matches 1.. if entity @s[tag=lobby] run scoreboard players set last_item_filled sys 0
+execute as @a if score @s open_chest matches 1.. if entity @s[tag=lobby] run scoreboard players set current_page sys 1
+# workaround for bug i dont feel like fixing properly
+execute as @a if score @s open_chest matches 1.. if entity @s[tag=lobby] run item replace block 240 -61 436 container.26 with arrow
 execute as @a if score @s open_chest matches 1.. if entity @s[tag=lobby] run function simondmc:fill_chest
 execute as @a if score @s open_chest matches 1.. if entity @s[tag=lobby] run scoreboard players reset @s open_chest
 
+# kill floor items
+execute as @e[type=item] if predicate simondmc:in_lobby run kill @s
+
+# tp into lobby if out of lobby
+execute as @a[tag=lobby] unless predicate simondmc:in_lobby run tp @s 241 -60 428 0 0
+
 # update chest check
 function simondmc:check_chest
+
+# food things
+function simondmc:check_food
 
 # no item obtaining
 clear @a[tag=lobby]
