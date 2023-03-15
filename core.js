@@ -125,4 +125,14 @@ function simondmc:sync_border`;
         // otherwise = a
         return "a ";
     }
+
+    // create all_items function
+    content = "";
+
+    items.forEach((item) => {
+        content += `give @s minecraft:${item[1]}
+`;
+    });
+
+    fs.writeFileSync(functionsPath + "/all_items.mcfunction", content);
 }

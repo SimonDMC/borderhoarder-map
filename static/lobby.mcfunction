@@ -21,8 +21,12 @@ execute as @a if score @s open_chest matches 1.. if entity @s[tag=lobby] run ite
 execute as @a if score @s open_chest matches 1.. if entity @s[tag=lobby] run function simondmc:fill_chest
 execute as @a if score @s open_chest matches 1.. if entity @s[tag=lobby] run scoreboard players reset @s open_chest
 
-# kill floor items
+# kill floor items and piglins
 execute as @e[type=item] if predicate simondmc:in_lobby run kill @s
+execute as @e[type=zombified_piglin] if predicate simondmc:in_lobby run kill @s
+
+# blocks make sound
+execute as @e[tag=small_block_int] run data merge entity @s {response:1b}
 
 # tp into lobby if out of lobby
 execute as @a[tag=lobby] unless predicate simondmc:in_lobby run tp @s 241 -60 428 0 0
@@ -42,12 +46,16 @@ execute as @e[tag=stand_interact] run data merge entity @s {interaction:{timesta
 
 # left click blocks
 execute as @e[tag=small_block_int_1] unless data entity @s {attack:{timestamp:0L}} run scoreboard players add block_1_spin sys 20
+execute as @e[tag=small_block_int_1] unless data entity @s {attack:{timestamp:0L}} on attacker at @s run playsound minecraft:entity.player.attack.weak master @s
 execute as @e[tag=small_block_int_1] run data merge entity @s {attack:{timestamp:0}}
 execute as @e[tag=small_block_int_2] unless data entity @s {attack:{timestamp:0L}} run scoreboard players add block_2_spin sys 20
+execute as @e[tag=small_block_int_2] unless data entity @s {attack:{timestamp:0L}} on attacker at @s run playsound minecraft:entity.player.attack.weak master @s
 execute as @e[tag=small_block_int_2] run data merge entity @s {attack:{timestamp:0}}
 execute as @e[tag=small_block_int_3] unless data entity @s {attack:{timestamp:0L}} run scoreboard players add block_3_spin sys 20
+execute as @e[tag=small_block_int_3] unless data entity @s {attack:{timestamp:0L}} on attacker at @s run playsound minecraft:entity.player.attack.weak master @s
 execute as @e[tag=small_block_int_3] run data merge entity @s {attack:{timestamp:0}}
 execute as @e[tag=small_block_int_4] unless data entity @s {attack:{timestamp:0L}} run scoreboard players add block_4_spin sys 20
+execute as @e[tag=small_block_int_4] unless data entity @s {attack:{timestamp:0L}} on attacker at @s run playsound minecraft:entity.player.attack.weak master @s
 execute as @e[tag=small_block_int_4] run data merge entity @s {attack:{timestamp:0}}
 
 # block spinning
