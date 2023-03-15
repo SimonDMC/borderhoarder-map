@@ -66,4 +66,7 @@ startTimer("copyStatic");
 copyStatic();
 endTimer("copyStatic");
 
-console.log("\x1b[32mDatapack generation done!\x1b[0m");
+// https://ansi.gabebanks.net/
+console.log(
+    `\x1b[32mDatapack generation done at \x1b[34m${new Date().toUTCString()}\x1b[32m!\x1b[0m`
+);
