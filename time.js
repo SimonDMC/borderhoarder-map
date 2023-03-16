@@ -1,3 +1,9 @@
+/*
+    Utility script for timing generation scripts.
+
+    Refer to README for info about why this is written in JS
+*/
+
 const timers = new Map();
 
 export function startTimer(label) {

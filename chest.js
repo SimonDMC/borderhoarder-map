@@ -1,3 +1,16 @@
+/*
+    This script generates the following files/functions:
+    - fill_item.mcfunction
+    - find_next_item.mcfunction
+    - proof_chest.mcfunction
+    - wipe_chest.mcfunction
+    - fill_chest.mcfunction
+    - check_chest.mcfunction
+    - complete_chest.mcfunction
+
+    Refer to README for info about why this is written in JS
+*/
+
 import fs from "fs";
 import { items } from "./items.js";
 import { lootTablesPath, functionsPath } from "./generate.js";

@@ -3,6 +3,7 @@
     - index.mcfunction
     - obtain.mcfunction
     - sync_border.mcfunction
+    - all_items.mcfunction
     - items/*.mcfunction
     - advancements/*.json
 

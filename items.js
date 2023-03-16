@@ -1,3 +1,9 @@
+/*
+    Exports the item list for use in other scripts.
+
+    Refer to README for info about why this is written in JS
+*/
+
 export const items = [
     ["Stone", "stone"],
     ["Granite", "granite"],

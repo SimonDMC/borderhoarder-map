@@ -1,3 +1,17 @@
+/*
+    This script generates the following files/functions:
+    - spin_blocks.mcfunction
+    - update_area.mcfunction
+    - update_progress.mcfunction
+    - join_lobby.mcfunction
+    - leave_lobby.mcfunction
+    - lobby/join_lobby_*.mcfunction
+    - lobby/leave_lobby_*.mcfunction
+    - check_food.mcfunction
+
+    Refer to README for info about why this is written in JS
+*/
+
 import fs from "fs";
 import { functionsPath } from "./generate.js";
 import { items } from "./items.js";

@@ -3,6 +3,8 @@
     - wipe.js
     - core.js
     - chest.js
+    - lobby.js
+    - copy.js
 
     It also defines path variables for the other scripts to use.
 

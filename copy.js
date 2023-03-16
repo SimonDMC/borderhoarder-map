@@ -1,3 +1,18 @@
+/*
+    This script copies the following files/functions to the data folder:
+    - tick.json
+    - empty_pane.json
+    - tick.mcfunction
+    - lobby.mcfunction
+    - click_stand.mcfunction
+    - in_lobby.json
+
+    All of these files are in the static/ folder due to the data folder
+    being wiped every time the script is run.
+
+    Refer to README for info about why this is written in JS
+*/
+
 import fs from "fs";
 import {
     basePath,
