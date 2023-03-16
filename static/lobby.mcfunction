@@ -45,6 +45,7 @@ execute as @e[tag=stand_interact] unless data entity @s {interaction:{timestamp:
 execute as @e[tag=stand_interact] run data merge entity @s {interaction:{timestamp:0}}
 
 # left click blocks
+execute as @e[tag=small_block_int] run data merge entity @s {response:0b}
 execute as @e[tag=small_block_int_1] unless data entity @s {attack:{timestamp:0L}} run scoreboard players add block_1_spin sys 20
 execute as @e[tag=small_block_int_1] unless data entity @s {attack:{timestamp:0L}} on attacker at @s run playsound minecraft:entity.player.attack.weak master @s
 execute as @e[tag=small_block_int_1] run data merge entity @s {attack:{timestamp:0}}

@@ -119,7 +119,7 @@ scoreboard players operation ${i}_health in_lobby = @s health
 scoreboard players operation ${i}_food in_lobby = @s food
 effect give @s regeneration infinite 10 true
 effect give @s resistance infinite 10 true
-effect give @s weakness infinite 10 true
+team join lobby @s
 execute at @s as @e[distance=..5] run data merge entity @s {PersistenceRequired:1b}
 tp @e[tag=pos_hold_${i}] @s
 tp @s ${LOBBY_POS} 0 0
@@ -149,6 +149,7 @@ item replace entity @s armor.chest from block ${BARREL_2} container.10
 item replace entity @s armor.legs from block ${BARREL_2} container.11
 item replace entity @s armor.feet from block ${BARREL_2} container.12
 item replace entity @s weapon.offhand from block ${BARREL_2} container.13
+effect clear @s resistance
 `;
         for (let j = 0; j <= 20; j++) {
             content += `execute if score ${i}_health in_lobby matches ${j} run damage @s ${Math.min(
@@ -158,8 +159,7 @@ item replace entity @s weapon.offhand from block ${BARREL_2} container.13
 `;
         }
         content += `effect clear @s regeneration
-effect clear @s resistance
-effect clear @s weakness
+team leave @s
 tp @s @e[tag=pos_hold_${i},limit=1]
 execute at @s as @e[distance=..10] run data merge entity @s {PersistenceRequired:0b}
 execute at @s run playsound entity.enderman.teleport master @s

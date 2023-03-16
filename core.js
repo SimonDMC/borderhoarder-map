@@ -16,15 +16,14 @@ import { functionsPath, advancementsPath } from "./generate.js";
 export default function generateCore() {
     // create index.mcfunction
     let content = `
-scoreboard objectives add sys dummy
 scoreboard objectives add items dummy
-advancement revoke @a everything
 scoreboard players set border sys 0
-function simondmc:sync_border
 
 scoreboard objectives add p_items dummy
-scoreboard players set @a p_items 0
 scoreboard objectives setdisplay list p_items
+team add lobby
+team modify lobby friendlyFire false
+team modify lobby collisionRule never
 
 # setup
 weather clear
@@ -35,6 +34,10 @@ kill @e[type=creeper]
 kill @e[type=enderman]
 kill @e[type=item]
 gamerule sendCommandFeedback false
+gamerule randomTickSpeed 3
+gamerule doDaylightCycle true
+
+scoreboard players set setup sys 1
 
 # for chest.js
 scoreboard players set last_page_item sys 0
