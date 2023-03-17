@@ -406,8 +406,6 @@ export const items = [
     ["Lilac", "lilac"],
     ["Rose Bush", "rose_bush"],
     ["Peony", "peony"],
-    ["Tall Grass", "tall_grass"],
-    ["Large Fern", "large_fern"],
     ["White Stained Glass", "white_stained_glass"],
     ["Orange Stained Glass", "orange_stained_glass"],
     ["Magenta Stained Glass", "magenta_stained_glass"],
