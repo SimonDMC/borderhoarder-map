@@ -89,8 +89,8 @@ execute as @s[tag=!lobby] at @s if dimension minecraft:the_nether run tellraw @s
 execute as @s[tag=!lobby] at @s if dimension minecraft:the_end run tellraw @s {"text":"You can't enter the lobby while in the end.","color":"red"}
 `;
     for (let i = 1; i <= 16; i++) {
-        content += `execute as @s[tag=!lobby] at @s if dimension minecraft:overworld unless score ${i} in_lobby matches 1 run function simondmc:lobby/join_lobby_${i}
-execute unless entity @e[tag=pos_hold_${i}] at @s if dimension minecraft:overworld run summon marker ~ ~ ~ {Tags:["pos_hold_${i}"]}
+        content += `execute unless entity @e[tag=pos_hold_${i}] at @s if dimension minecraft:overworld run summon marker ~ ~ ~ {Tags:["pos_hold_${i}"]}
+execute as @s[tag=!lobby] at @s if dimension minecraft:overworld unless score ${i} in_lobby matches 1 run function simondmc:lobby/join_lobby_${i}
 `;
     }
 
