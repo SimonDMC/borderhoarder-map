@@ -7,7 +7,7 @@ limitations and project scope.
 ## Repository
 
 As the world is static, this repository only contains the datapack for the map along with
-all the scripts used to generate it. The map has not been released yet.
+all the scripts used to generate it. The map can be downloaded [here](https://github.com/SimonDMC/BorderHoarder-Map/releases/latest/download/BorderHoarder.zip).
 
 ## Why JavaScript
 
