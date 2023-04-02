@@ -85,12 +85,10 @@ execute if score block_${i}_spin sys matches 1.. run scoreboard players remove b
     // create join lobby function
     content = `scoreboard objectives add in_lobby dummy
 scoreboard players reset @a lobby
-execute as @s[tag=!lobby] at @s if dimension minecraft:the_nether run tellraw @s {"text":"You can't enter the lobby while in the nether.","color":"red"}
-execute as @s[tag=!lobby] at @s if dimension minecraft:the_end run tellraw @s {"text":"You can't enter the lobby while in the end.","color":"red"}
 `;
     for (let i = 1; i <= 16; i++) {
-        content += `execute unless entity @e[tag=pos_hold_${i}] at @s if dimension minecraft:overworld run summon marker ~ ~ ~ {Tags:["pos_hold_${i}"]}
-execute as @s[tag=!lobby] at @s if dimension minecraft:overworld unless score ${i} in_lobby matches 1 run function simondmc:lobby/join_lobby_${i}
+        content += `execute unless entity @e[tag=pos_hold_${i}] at @s run summon marker ~ ~ ~ {Tags:["pos_hold_${i}"]}
+execute as @s[tag=!lobby] at @s unless score ${i} in_lobby matches 1 run function simondmc:lobby/join_lobby_${i}
 `;
     }
 
@@ -135,8 +133,9 @@ effect give @s regeneration infinite 10 true
 effect give @s resistance infinite 10 true
 team join lobby @s
 execute at @s as @e[distance=..5] run data merge entity @s {PersistenceRequired:1b}
+execute at @s run forceload add ~ ~
 tp @e[tag=pos_hold_${i}] @s
-tp @s ${LOBBY_POS} 0 0
+execute in minecraft:overworld run tp @s ${LOBBY_POS} 0 0
 execute at @s run playsound entity.enderman.teleport master @s
 gamemode adventure @s
 scoreboard players reset @s open_chest
@@ -175,6 +174,7 @@ effect clear @s resistance
         content += `effect clear @s regeneration
 team leave @s
 tp @s @e[tag=pos_hold_${i},limit=1]
+execute at @s run forceload remove ~ ~
 execute at @s as @e[distance=..10] run data merge entity @s {PersistenceRequired:0b}
 execute at @s run playsound entity.enderman.teleport master @s
 gamemode survival @s
