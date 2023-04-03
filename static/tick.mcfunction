@@ -34,6 +34,9 @@ execute as @a if score @s deaths matches 1.. run scoreboard players reset @s dea
 # setup on join
 scoreboard objectives add sys dummy
 execute unless score setup sys matches 1 run function simondmc:index
+execute if entity @a unless score ver sys matches 1 unless score ver_inf sys matches 1 run tellraw @a ["",{"text":"---------------------------------------------","bold":true,"strikethrough":true,"color":"gold"},{"text":"\n"},{"text":" \u0020 \u0020 \u0020 \u0020 \u0020 \u0020 \u0020 \u0020 \u0020 \u0020 \u0020 \u0020 \u0020 \u0020 Border Hoarder","color":"green"},{"text":"\n\n"},{"text":" \u0020 \u0020 \u0020 \u0020 \u0020 \u0020 \u0020Successfully updated to ","bold":true,"color":"yellow"},{"text":"v1.1","bold":true,"color":"green"},{"text":"!","bold":true,"color":"yellow"},{"text":"\n\n"},{"text":"---------------------------------------------","bold":true,"strikethrough":true,"color":"gold"}]
+execute if entity @a unless score ver sys matches 1 unless score ver_inf sys matches 1 as @a at @s run playsound entity.player.levelup master @s
+execute if entity @a unless score ver sys matches 1 unless score ver_inf sys matches 1 run scoreboard players set ver_inf sys 1
 gamemode survival @a[tag=!player]
 advancement revoke @a[tag=!player] everything
 spawnpoint @a[tag=!player] 241 71 428

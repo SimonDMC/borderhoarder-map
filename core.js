@@ -38,6 +38,9 @@ gamerule sendCommandFeedback false
 gamerule randomTickSpeed 3
 gamerule doDaylightCycle true
 
+# mark version for update check
+scoreboard players set ver sys 1
+
 scoreboard players set setup sys 1
 
 # for chest.js
