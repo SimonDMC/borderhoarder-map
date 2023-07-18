@@ -402,7 +402,6 @@ export const items = [
     ["Black Carpet", "black_carpet"],
     ["Terracotta", "terracotta"],
     ["Packed Ice", "packed_ice"],
-    ["Sunflower", "sunflower"],
     ["Lilac", "lilac"],
     ["Rose Bush", "rose_bush"],
     ["Peony", "peony"],
