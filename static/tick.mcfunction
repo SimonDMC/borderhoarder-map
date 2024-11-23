@@ -38,9 +38,17 @@ execute as @a if score @s deaths matches 1.. run scoreboard players reset @s dea
 # setup on join
 scoreboard objectives add sys dummy
 execute unless score setup sys matches 1 run function simondmc:index
-execute if entity @a unless score ver sys matches 2 unless score ver_inf sys matches 2 run tellraw @a ["",{"text":"---------------------------------------------","bold":true,"strikethrough":true,"color":"gold"},{"text":"\n"},{"text":" \u0020 \u0020 \u0020 \u0020 \u0020 \u0020 \u0020 \u0020 \u0020 \u0020 \u0020 \u0020 \u0020 \u0020 Border Hoarder","color":"green"},{"text":"\n\n"},{"text":" \u0020 \u0020 \u0020 \u0020 \u0020 \u0020 \u0020Successfully updated to ","bold":true,"color":"yellow"},{"text":"v1.2","bold":true,"color":"green"},{"text":"!","bold":true,"color":"yellow"},{"text":"\n\n"},{"text":"---------------------------------------------","bold":true,"strikethrough":true,"color":"gold"}]
-execute if entity @a unless score ver sys matches 2 unless score ver_inf sys matches 2 as @a at @s run playsound entity.player.levelup master @s
-execute if entity @a unless score ver sys matches 2 unless score ver_inf sys matches 2 run scoreboard players set ver_inf sys 2
+
+# Version Updater
+#
+# With every update, increment the version score in the 3 commands below (six `matches` and one `scoreboard players set`)
+# and change the version name in the tellraw
+#
+# ALSO ver_inf is set in core.js so change it there too !!!!
+
+execute if entity @a unless score ver sys matches 3 unless score ver_inf sys matches 3 run tellraw @a ["",{"text":"---------------------------------------------","bold":true,"strikethrough":true,"color":"gold"},{"text":"\n"},{"text":" \u0020 \u0020 \u0020 \u0020 \u0020 \u0020 \u0020 \u0020 \u0020 \u0020 \u0020 \u0020 \u0020 \u0020 Border Hoarder","color":"green"},{"text":"\n\n"},{"text":" \u0020 \u0020 \u0020 \u0020 \u0020 \u0020 \u0020Successfully updated to ","bold":true,"color":"yellow"},{"text":"v1.3","bold":true,"color":"green"},{"text":"!","bold":true,"color":"yellow"},{"text":"\n\n"},{"text":"---------------------------------------------","bold":true,"strikethrough":true,"color":"gold"}]
+execute if entity @a unless score ver sys matches 3 unless score ver_inf sys matches 3 as @a at @s run playsound entity.player.levelup master @s
+execute if entity @a unless score ver sys matches 3 unless score ver_inf sys matches 3 run scoreboard players set ver_inf sys 3
 gamemode survival @a[tag=!player]
 advancement revoke @a[tag=!player] everything
 spawnpoint @a[tag=!player] 241 71 428

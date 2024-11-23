@@ -39,7 +39,7 @@ gamerule randomTickSpeed 3
 gamerule doDaylightCycle true
 
 # mark version for update check
-scoreboard players set ver sys 2
+scoreboard players set ver sys 3
 
 scoreboard players set setup sys 1
 
@@ -80,20 +80,12 @@ scoreboard players set last_page_item sys 0
     }
 
     items.forEach((item) => {
-        content = `execute as @s[tag=lobby] run advancement revoke @s only simondmc:${
-            item[1]
-        }
-execute as @s[tag=!lobby] unless score ${
-            item[1]
-        } items matches 1.. run tellraw @a [{"selector":"@s","color":"green"},{"text":" obtained ${
+        content = `execute as @s[tag=lobby] run advancement revoke @s only simondmc:${item[1]}
+execute as @s[tag=!lobby] unless score ${item[1]} items matches 1.. run tellraw @a [{"selector":"@s","color":"green"},{"text":" obtained ${
             getPreposition(item[0]) + item[0]
         }!","color":"green"}]
-execute as @s[tag=!lobby] unless score ${
-            item[1]
-        } items matches 1.. run function simondmc:obtain
-execute as @s[tag=!lobby] unless score ${
-            item[1]
-        } items matches 1.. run scoreboard players set ${item[1]} items 1`;
+execute as @s[tag=!lobby] unless score ${item[1]} items matches 1.. run function simondmc:obtain
+execute as @s[tag=!lobby] unless score ${item[1]} items matches 1.. run scoreboard players set ${item[1]} items 1`;
 
         fs.writeFileSync(itemFunctionsPath + `/${item[1]}.mcfunction`, content);
     });
@@ -112,9 +104,7 @@ function simondmc:sync_border`;
     content = "";
 
     for (let i = 0; i <= items.length; i++) {
-        content += `execute if score border sys matches ${i} run worldborder set ${
-            i * 2 + 1
-        } 1
+        content += `execute if score border sys matches ${i} run worldborder set ${i * 2 + 1} 1
 `;
     }
 
@@ -122,7 +112,9 @@ function simondmc:sync_border`;
 
     function getPreposition(item) {
         // plural = s
-        if (item.endsWith("s")) {
+        // also special case for dirt because it's the first item you obtain
+        // and "a Dirt" looks bad; don't care enough about the rest
+        if (item.endsWith("s") || item == "Dirt") {
             return "";
         }
         // starts with a vowel = an

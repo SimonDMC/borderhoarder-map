@@ -5,6 +5,7 @@
     - tick.mcfunction
     - lobby.mcfunction
     - click_stand.mcfunction
+    - version.mcfunction
     - in_lobby.json
 
     All of these files are in the static/ folder due to the data folder
@@ -14,12 +15,7 @@
 */
 
 import fs from "fs";
-import {
-    basePath,
-    functionsPath,
-    lootTablesPath,
-    predicatesPath,
-} from "./generate.js";
+import { basePath, functionsPath, lootTablesPath, predicatesPath } from "./generate.js";
 
 export default function copyStatic() {
     const staticPath = process.cwd() + "/static";
@@ -35,28 +31,14 @@ export default function copyStatic() {
     fs.copyFileSync(staticPath + "/tick.json", functionTagPath + "/tick.json");
 
     // copy loot tables
-    fs.copyFileSync(
-        staticPath + "/empty_pane.json",
-        lootTablesPath + "/empty_pane.json"
-    );
+    fs.copyFileSync(staticPath + "/empty_pane.json", lootTablesPath + "/empty_pane.json");
 
     // copy functions
-    fs.copyFileSync(
-        staticPath + "/tick.mcfunction",
-        functionsPath + "/tick.mcfunction"
-    );
-    fs.copyFileSync(
-        staticPath + "/lobby.mcfunction",
-        functionsPath + "/lobby.mcfunction"
-    );
-    fs.copyFileSync(
-        staticPath + "/click_stand.mcfunction",
-        functionsPath + "/click_stand.mcfunction"
-    );
+    fs.copyFileSync(staticPath + "/tick.mcfunction", functionsPath + "/tick.mcfunction");
+    fs.copyFileSync(staticPath + "/lobby.mcfunction", functionsPath + "/lobby.mcfunction");
+    fs.copyFileSync(staticPath + "/click_stand.mcfunction", functionsPath + "/click_stand.mcfunction");
+    fs.copyFileSync(staticPath + "/version.mcfunction", functionsPath + "/version.mcfunction");
 
     // copy predicates
-    fs.copyFileSync(
-        staticPath + "/in_lobby.json",
-        predicatesPath + "/in_lobby.json"
-    );
+    fs.copyFileSync(staticPath + "/in_lobby.json", predicatesPath + "/in_lobby.json");
 }

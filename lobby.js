@@ -113,19 +113,19 @@ tag @s add lobby_${i}
 scoreboard players set ${i} in_lobby 1
 `;
         for (let j = 0; j < 27; j++) {
-            content += `item replace block ${BARREL_1} container.${j} from entity @s inventory.${j}
+            content += `execute in overworld run item replace block ${BARREL_1} container.${j} from entity @s inventory.${j}
 `;
         }
 
         for (let j = 0; j < 9; j++) {
-            content += `item replace block ${BARREL_2} container.${j} from entity @s hotbar.${j}
+            content += `execute in overworld run item replace block ${BARREL_2} container.${j} from entity @s hotbar.${j}
 `;
         }
-        content += `item replace block ${BARREL_2} container.9 from entity @s armor.head
-item replace block ${BARREL_2} container.10 from entity @s armor.chest
-item replace block ${BARREL_2} container.11 from entity @s armor.legs
-item replace block ${BARREL_2} container.12 from entity @s armor.feet
-item replace block ${BARREL_2} container.13 from entity @s weapon.offhand
+        content += `execute in overworld run item replace block ${BARREL_2} container.9 from entity @s armor.head
+execute in overworld run item replace block ${BARREL_2} container.10 from entity @s armor.chest
+execute in overworld run item replace block ${BARREL_2} container.11 from entity @s armor.legs
+execute in overworld run item replace block ${BARREL_2} container.12 from entity @s armor.feet
+execute in overworld run item replace block ${BARREL_2} container.13 from entity @s weapon.offhand
 clear @s
 scoreboard players operation ${i}_health in_lobby = @s health
 scoreboard players operation ${i}_food in_lobby = @s food
@@ -165,10 +165,7 @@ item replace entity @s weapon.offhand from block ${BARREL_2} container.13
 effect clear @s resistance
 `;
         for (let j = 0; j <= 20; j++) {
-            content += `execute if score ${i}_health in_lobby matches ${j} run damage @s ${Math.min(
-                19,
-                20 - j
-            )}
+            content += `execute if score ${i}_health in_lobby matches ${j} run damage @s ${Math.min(19, 20 - j)}
 `;
         }
         content += `effect clear @s regeneration
